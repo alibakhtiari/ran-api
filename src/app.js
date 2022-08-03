@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const cronJob = require('node-cron');
 const sqlite3 = require('sqlite3').verbose();  
 const db = new sqlite3.Database('src/ran.db');
 
@@ -8,6 +9,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
+cronJob.schedule('*/1 * * * *', () => {
+  console.log('running a task every minutes' + Date.now());
+});
 
 let count = 0;
 
