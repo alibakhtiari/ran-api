@@ -1,12 +1,19 @@
 const express = require('express');
+
+require('dotenv').config();
+
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+
 const cronJob = require('node-cron');
+
+const axios = require('axios');
+
 const sqlite3 = require('sqlite3').verbose();  
 const db = new sqlite3.Database('src/ran.db');
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World!');
 });
 
 cronJob.schedule('*/1 * * * *', () => {
